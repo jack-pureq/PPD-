@@ -4,8 +4,162 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NODO PPD - Repositorio Técnico</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <style>
+        /* --- AQUÍ ESTÁ TU CÓDIGO CSS COMPLETO SIN RECORTES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --gris-oscuro: #2c3e50;
+            --azul-electrico: #2980b9;
+            --amarillo-seguridad: #f1c40f;
+            --blanco-humo: #ecf0f1;
+            --negro-panel: #1a1a1a;
+        }
+
+        body {
+            background-color: var(--blanco-humo);
+            color: var(--negro-panel);
+        }
+
+        /* Encabezado Industrial */
+        header {
+            background-color: var(--negro-panel);
+            color: white;
+            padding: 1.5rem;
+            border-bottom: 5px solid var(--azul-electrico);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 span {
+            color: var(--amarillo-seguridad);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        /* Buscador Estilo Panel */
+        .search-bar {
+            background-color: var(--gris-oscuro);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .search-bar input {
+            width: 60%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 12px 25px;
+            background-color: var(--amarillo-seguridad);
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 0 4px 4px 0;
+            transition: background 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #d4ac0d;
+        }
+
+        /* Grilla de Semestres (Nodos) */
+        .grid-semestres {
+            padding: 3rem 10%;
+        }
+
+        .grid-semestres h2 {
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--azul-electrico);
+            padding-left: 10px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 4px solid var(--azul-electrico);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, cursor 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background-color: #f7f9f9;
+        }
+
+        /* Sección de Legado */
+        .legado-seccion {
+            background-color: #f9f9f9;
+            padding: 3rem 10%;
+            border-top: 1px solid #ddd;
+        }
+
+        .post-destacado {
+            background: white;
+            padding: 1.5rem;
+            border-left: 5px solid var(--amarillo-seguridad);
+            margin-top: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--negro-panel);
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        /* Animación de carga de Nodos */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            color: var(--amarillo-seguridad);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+        }
+    </style>
+</head>
 <body>
+
+    <div id="loader" class="loading-overlay">
+        <h2>CONECTANDO NODO...</h2>
+        <p>Cargando información técnica</p>
+    </div>
 
     <header>
         <div class="logo-container">
@@ -23,155 +177,64 @@
 
     <main>
         <section class="search-bar">
-            <input type="text" placeholder="Buscar por tema (ej. Arranque estrella-triángulo)...">
-            <button type="submit">Buscar Nodo</button>
+            <input type="text" id="busqueda" placeholder="Buscar por tema (ej. Arranque estrella-triángulo)...">
+            <button onclick="simularBusqueda()">Buscar Nodo</button>
         </section>
 
         <section class="grid-semestres">
             <h2>Módulos Académicos</h2>
             <div class="container">
-                <div class="card"><h3>I - II Semestre</h3><p>Fundamentos y Circuitos</p></div>
-                <div class="card"><h3>III - IV Semestre</h3><p>Máquinas y Tableros</p></div>
-                <div class="card"><h3>V - VI Semestre</h3><p>Automatización y Proyectos</p></div>
+                <div class="card" onclick="cargarModulo('I - II Semestre')">
+                    <h3>I - II Semestre</h3>
+                    <p>Fundamentos, Electrotecnia y Circuitos Eléctricos.</p>
+                </div>
+                <div class="card" onclick="cargarModulo('III - IV Semestre')">
+                    <h3>III - IV Semestre</h3>
+                    <p>Máquinas Eléctricas, Tableros y Mantenimiento.</p>
+                </div>
+                <div class="card" onclick="cargarModulo('V - VI Semestre')">
+                    <h3>V - VI Semestre</h3>
+                    <p>Automatización Industrial (PLC) y Proyectos de Grado.</p>
+                </div>
             </div>
         </section>
 
         <section class="legado-seccion">
             <h2>Experiencias de Campo (Egresados)</h2>
             <div class="post-destacado">
-                <h4>Mantenimiento de Winches en Minería</h4>
-                <p>Por: Jimmy (Egresado 2017)</p>
-                <small>Etiquetas: #Minería #Motores #Seguridad</small>
+                <h4>Mantenimiento de Winches y Bombas en Secocha</h4>
+                <p><strong>Por: Jimmy (Egresado 2017)</strong></p>
+                <p>Consejo: Siempre verifiquen el aislamiento de los motores en zonas de alta humedad antes del arranque.</p>
+                <small>Etiquetas: #Minería #Motores #SeguridadEléctrica</small>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 NODO PPD - Desarrollado para la Excelencia Académica</p>
+        <p>&copy; 2026 NODO PPD - Repositorio de Transferencia Tecnológica</p>
     </footer>
 
-    /* Configuración General */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    <script>
+        // Función para simular la conexión de red entre nodos
+        function cargarModulo(nombreModulo) {
+            const loader = document.getElementById('loader');
+            loader.style.display = 'flex';
+            
+            // Simulamos una carga de red de 1.5 segundos
+            setTimeout(() => {
+                loader.style.display = 'none';
+                alert("Has ingresado al Nodo: " + nombreModulo + "\nAquí aparecerán los proyectos compartidos por tus compañeros.");
+            }, 1500);
+        }
 
-:root {
-    --gris-oscuro: #2c3e50;
-    --azul-electrico: #2980b9;
-    --amarillo-seguridad: #f1c40f;
-    --blanco-humo: #ecf0f1;
-    --negro-panel: #1a1a1a;
-}
-
-body {
-    background-color: var(--blanco-humo);
-    color: var(--negro-panel);
-}
-
-/* Encabezado Industrial */
-header {
-    background-color: var(--negro-panel);
-    color: white;
-    padding: 1.5rem;
-    border-bottom: 5px solid var(--azul-electrico);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header h1 span {
-    color: var(--amarillo-seguridad);
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: bold;
-}
-
-/* Buscador Estilo Panel */
-.search-bar {
-    background-color: var(--gris-oscuro);
-    padding: 2rem;
-    text-align: center;
-}
-
-.search-bar input {
-    width: 60%;
-    padding: 12px;
-    border: none;
-    border-radius: 4px 0 0 4px;
-}
-
-.search-bar button {
-    padding: 12px 25px;
-    background-color: var(--amarillo-seguridad);
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 0 4px 4px 0;
-}
-
-/* Grilla de Semestres (Nodos) */
-.grid-semestres {
-    padding: 3rem 10%;
-}
-
-.grid-semestres h2 {
-    margin-bottom: 1.5rem;
-    border-left: 5px solid var(--azul-electrico);
-    padding-left: 10px;
-}
-
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    border-top: 4px solid var(--azul-electrico);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-}
-
-/* Sección de Legado */
-.legado-seccion {
-    background-color: #f9f9f9;
-    padding: 3rem 10%;
-    border-top: 1px solid #ddd;
-}
-
-.post-destacado {
-    background: white;
-    padding: 1.5rem;
-    border-left: 5px solid var(--amarillo-seguridad);
-    margin-top: 1rem;
-}
-
-footer {
-    text-align: center;
-    padding: 2rem;
-    background: var(--negro-panel);
-    color: white;
-    font-size: 0.8rem;
-}
-    
+        function simularBusqueda() {
+            const query = document.getElementById('busqueda').value;
+            if(query) {
+                alert("Buscando '" + query + "' en la base de datos del Pedro P. Díaz...");
+            } else {
+                alert("Por favor, ingresa un término técnico para buscar.");
+            }
+        }
+    </script>
 </body>
 </html>
